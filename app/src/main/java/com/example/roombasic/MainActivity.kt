@@ -7,9 +7,11 @@ import android.util.Log
 import android.widget.Button
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.roombasic.databinding.ActivityMainBinding
 import java.lang.Exception
 
 class MainActivity : AppCompatActivity() {
+    lateinit var binding : ActivityMainBinding
     private var catDb : CatDB? = null
     private var catList = listOf<Cat>()
     lateinit var mAdapter : CatAdapter
@@ -18,9 +20,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val mRecyclerView = findViewById<RecyclerView>(R.id.mRecyclerView)
-        val mAddBtn = findViewById<Button>(R.id.mAddBtn)
-
+        binding = ActivityMainBinding.inflate(layoutInflater)
 
         catDb = CatDB.getInstance(this)
         mAdapter = CatAdapter(this, catList)
@@ -32,9 +32,9 @@ class MainActivity : AppCompatActivity() {
                 mAdapter = CatAdapter(this, catList)
                 mAdapter.notifyDataSetChanged()
 
-                mRecyclerView.adapter = mAdapter
-                mRecyclerView.layoutManager = LinearLayoutManager(this)
-                mRecyclerView.setHasFixedSize(true)
+                binding.mRecyclerView.adapter = mAdapter
+                binding.mRecyclerView.layoutManager = LinearLayoutManager(this)
+                binding.mRecyclerView.setHasFixedSize(true)
             } catch (e: Exception) {
                 Log.d("tag", "Error - $e")
             }
@@ -43,7 +43,7 @@ class MainActivity : AppCompatActivity() {
         val thread = Thread(r)
         thread.start()
 
-        mAddBtn.setOnClickListener {
+        binding.mAddBtn.setOnClickListener {
             val i = Intent(this, AddActivity::class.java)
             startActivity(i)
             finish()
