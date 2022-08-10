@@ -1,23 +1,24 @@
-package com.example.roombasic
+package com.example.roombasic.presentaion
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Button
-import android.widget.EditText
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import com.example.roombasic.domain.entity.Cat
+import com.example.roombasic.R
+import com.example.roombasic.data.CatDB
 import com.example.roombasic.databinding.ActivityAddBinding
 
 class AddActivity : AppCompatActivity() {
-    lateinit private var binding: ActivityAddBinding
     private var catDb: CatDB? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_add)
 
         catDb = CatDB.getInstance(this)
 
-        binding = ActivityAddBinding.inflate(layoutInflater)
+        val binding = ActivityAddBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         /* 새로운 cat 객체를 생성, id 이외의 값을 지정 후 DB에 추가 */
         val addRunnable = Runnable {
@@ -29,6 +30,8 @@ class AddActivity : AppCompatActivity() {
         }
 
         binding.addBtn.setOnClickListener {
+            Log.d("testt", "end")
+
             val addThread = Thread(addRunnable)
             addThread.start()
 
@@ -36,6 +39,7 @@ class AddActivity : AppCompatActivity() {
             startActivity(i)
             finish()
         }
+
     }
 
     override fun onDestroy() {

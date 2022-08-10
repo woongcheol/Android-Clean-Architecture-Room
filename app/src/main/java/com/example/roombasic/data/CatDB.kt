@@ -1,9 +1,10 @@
-package com.example.roombasic
+package com.example.roombasic.data
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.example.roombasic.domain.entity.Cat
 
 @Database(entities = [Cat::class], version = 1)
 abstract class CatDB : RoomDatabase() {

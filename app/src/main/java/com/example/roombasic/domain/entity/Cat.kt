@@ -1,4 +1,4 @@
-package com.example.roombasic
+package com.example.roombasic.domain.entity
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

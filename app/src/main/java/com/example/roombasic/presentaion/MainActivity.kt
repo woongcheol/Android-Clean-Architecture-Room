@@ -1,26 +1,26 @@
-package com.example.roombasic
+package com.example.roombasic.presentaion
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.widget.Button
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import com.example.roombasic.domain.entity.Cat
+import com.example.roombasic.R
+import com.example.roombasic.data.CatDB
 import com.example.roombasic.databinding.ActivityMainBinding
 import java.lang.Exception
 
 class MainActivity : AppCompatActivity() {
-    lateinit var binding : ActivityMainBinding
     private var catDb : CatDB? = null
     private var catList = listOf<Cat>()
     lateinit var mAdapter : CatAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        val binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        binding = ActivityMainBinding.inflate(layoutInflater)
 
         catDb = CatDB.getInstance(this)
         mAdapter = CatAdapter(this, catList)
@@ -44,10 +44,12 @@ class MainActivity : AppCompatActivity() {
         thread.start()
 
         binding.mAddBtn.setOnClickListener {
+            Log.d("testt", "start")
             val i = Intent(this, AddActivity::class.java)
             startActivity(i)
             finish()
         }
+
     }
 
     override fun onDestroy() {

@@ -1,4 +1,4 @@
-package com.example.roombasic
+package com.example.roombasic.presentaion
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.roombasic.domain.entity.Cat
+import com.example.roombasic.R
 
 class CatAdapter(val context: Context, val cats: List<Cat>) :
     RecyclerView.Adapter<CatAdapter.Holder>() {
