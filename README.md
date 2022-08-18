@@ -21,6 +21,9 @@ SQLite 개체 매핑 라이브러리로, Jetpack 라이브러리의 아키텍쳐
 4. LiveData, RxJava와 같이 작동할 수 있다.
 
 ### 3. Room 구성요소
+![image](https://user-images.githubusercontent.com/86638578/183840483-0ef7506e-0e57-4ee2-bf02-4a2406109a47.png)
+
+출처 : [Android Room Docs](https://developer.android.com/training/data-storage/room?hl=ko)
 
 1. `Entity` : DB에 들어갈 테이블을 Kotlin Class로 구현한 것이다. 데이터 모델 클래스라고도 한다.
 2. `DAO` : Database Access Object의 약자이다. DB에 접근하여 insert, delete 등을 수행한다.
