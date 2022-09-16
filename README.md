@@ -1,4 +1,4 @@
-`최근 업데이트 : '22. 08. 18.`
+`최근 업데이트 : '22. 09. 16.`
 
 ![img_2.png](https://resources.stdio.vn/content/article/luu-tru-du-lieu-voi-sqlite-trong-android/thumbnail-hd/blob-1605173321355@960x540.png)  
 </br>
@@ -48,7 +48,7 @@ kapt "androidx.room:room-compiler:$room_version"
 
 ### 2. Entity
 ![image](https://user-images.githubusercontent.com/86638578/183840167-5c3724ec-d375-42d5-a6a2-2e31fddb12ce.png)
-#### 다음은 [`docs`](https://developer.android.com/training/data-storage/room/defining-data?hl=ko) 복합 기본 키 정의까지 설명되었습니다.
+
 #### 엔터티 정의
 - 엔터티를 구성하기 위해 데이터 클래스에 어노테이션 @Entity을 달아줍니다.  
 - 엔터티에는 기본 키(@PrimaryKey)를 반드시 정의해야 하며 이를 포함한 하나 이상의 필드가 존재합니다.
@@ -132,4 +132,30 @@ data class User(
     @ColumnInfo(name = "last_name") val lastName: String?,
     @Ignore var picture: Bitmap?
 )
+```
+
+### 3. DAO
+![image](https://user-images.githubusercontent.com/86638578/190575170-11154d6f-1752-48df-ac58-f638ad181bcc.png)
+
+#### DAO 정의
+- 데이터 액세스 객체(DAO)는 컴파일 시간에 Room을 통해 생성되며, 생성된 DAO는 저장된 데이터와 상호작용한다.
+- DAO는 속성은 없지만, DB의 데이터와 상호작용하는 메서드를 하나 이상 구현해야한다. 이러한 메서드의 유형에는 편의 메서드와 쿼리 메서드로 나뉜다.
+- 편의 메서드는 SQL 문을 작성하지 않아도 삽입과, 업데이트, 삭제를 실행하는 메서드를 정의하는 편의 주석을 제공한다.
+```kotlin
+@Dao
+interface UserDao {
+    @Insert(onConflict = OnConflictStrategy.REPLACE) // 삽입 수행
+    fun insertUsers(vararg users: User)
+
+    @Update // 업데이트 수행
+    fun updateUsers(vararg users: User)
+
+    @Delete // 삭제 수행
+    fun deleteUsers(vararg users: User)
+}
+```
+- 쿼리 메서드는 SQL 문을 작성하여 데이터를 쿼리하거나 좀 더 복잡한 삽입, 업데이트, 삭제를 실행해야할 때 사용하며, 컴파일 시간에 SQL 쿼리를 검증한다.
+```kotlin
+@Query("SELECT * FROM user WHERE age > :minAge") // 필터링이 필요할 경우 매개 변수를 허용하여 쿼리에 적용한다.
+fun loadAllUsersOlderThan(minAge: Int): Array<User>
 ```
